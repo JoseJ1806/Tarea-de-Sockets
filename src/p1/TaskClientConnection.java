@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.net.Socket;
 import javafx.application.Platform;
 
+/**
+ * 
+ * This class represents each new connection
+ *
+ */
 public class TaskClientConnection implements Runnable {
 	
 	Socket socket;
@@ -19,11 +24,11 @@ public class TaskClientConnection implements Runnable {
 		this.server = server;	
 	}
 
-
 	@Override
 	public void run() {
 		
 		try {
+			// Create data input and output streams
 			input = new DataInputStream(
 					socket.getInputStream());
 			output = new DataOutputStream(
@@ -42,9 +47,10 @@ public class TaskClientConnection implements Runnable {
 				});
 			}
 		
-	}catch (IOException ex) {
+			
+	} catch (IOException ex) {
 		ex.printStackTrace();
-	}finally {
+	} finally {
 		try {
 			socket.close();
 		} catch (IOException ex) {
@@ -53,11 +59,12 @@ public class TaskClientConnection implements Runnable {
 	  }	
 
     }
-	
+	//send message back to client
 	public void sendMessage (String message) {
 		try {
 			output.writeUTF(message);
 			output.flush();
+			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

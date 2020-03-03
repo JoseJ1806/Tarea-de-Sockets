@@ -13,8 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import p2.ConnectionUtil;
-import p2.TaskClientConnection;
+
 
 
 public class SocketServer extends Application {

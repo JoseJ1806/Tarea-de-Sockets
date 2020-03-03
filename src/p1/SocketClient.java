@@ -16,14 +16,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-
-
 
 public class SocketClient extends Application{
 
 	TextField puerto;
-	TextField input;
+	TextField txtInput;
 	public TextArea messages = new TextArea();
 	
 	DataOutputStream output = null;
@@ -46,12 +45,12 @@ public class SocketClient extends Application{
 		scrollPane.setFitToHeight(true);
 		scrollPane.setFitToWidth(true);
 		
-		TextField input = new TextField();
-		input.setStyle("-fx-background-color: rgba(66, 66, 66, 5); -fx-text-fill: rgba(249, 226, 162, 0.9)");
-		input.setMinSize(510,80);
-		input.setPromptText("Mensaje");
+		txtInput = new TextField();
+		txtInput.setStyle("-fx-background-color: rgba(66, 66, 66, 5); -fx-text-fill: rgba(249, 226, 162, 0.9)");
+		txtInput.setMinSize(510,80);
+		txtInput.setPromptText("Mensaje");
 		
-		TextField puerto = new TextField();
+		puerto = new TextField();
 		puerto.setStyle("-fx-background-color: rgba(66, 66, 66, 5); -fx-text-fill: rgba(249, 226, 162, 0.9)");
 		puerto.setMinSize(30,80);
 		puerto.setPromptText("Destinatario");
@@ -64,7 +63,8 @@ public class SocketClient extends Application{
 		enviar.setStyle("-fx-font:bold italic 24pt Arial; -fx-text-fill:rgba(249, 226, 162, 0.9); -fx-background-color: rgba(66, 66, 66, 5);");
 		enviar.setOnAction(new ButtonListener());
 		
-		HBox espacio = new HBox(3,puerto,input,enviar);
+		HBox espacio = new HBox(3,puerto,txtInput,enviar);
+		HBox.setHgrow(txtInput, Priority.ALWAYS);
 				
 		BorderPane root = new BorderPane();
 		root.setBottom(espacio);
@@ -79,7 +79,7 @@ public class SocketClient extends Application{
 	
 	@Override
 	public void start (Stage primaryStage) throws Exception {
-		primaryStage.setTitle("Prueba");
+		primaryStage.setTitle("Text Chat App");
 		primaryStage.setScene(new Scene(createContent(),800,600));
 		primaryStage.show();
 		primaryStage.setResizable(false);
@@ -95,9 +95,9 @@ public class SocketClient extends Application{
             output = new DataOutputStream(socket.getOutputStream());
 
             //create a thread in order to read message from server continuously
-            //TaskReadThread task = new TaskReadThread(socket, this);
-            //Thread thread = new Thread(task);
-            //thread.start();
+            TaskReadThread task = new TaskReadThread(socket, this);
+            Thread thread = new Thread(task);
+            thread.start();
         } catch (IOException ex) {
             
             messages.appendText(ex.toString() + '\n');
@@ -106,27 +106,27 @@ public class SocketClient extends Application{
 	public static void main(String[] args) {
 		launch (args);	
 	}
-	
-	private class ButtonListener implements EventHandler<ActionEvent>{
+
+	private class ButtonListener implements EventHandler<ActionEvent> {
 		
 		@Override
 		public void handle(ActionEvent e) {
 			try {
 				String contacto = puerto.getText().trim();
-				String mensaje = input.getText().trim();
+				String message = txtInput.getText().trim();
 				
 				if (contacto.length() == 0) {
 					contacto = "Unknown";
 				}
-				if (mensaje.length() == 0) {
+				if (message.length() == 0) {
                     return;
 				}
 				//send message 
-				output.writeUTF("[" + contacto + "]:" + mensaje + "");
+				output.writeUTF("[port" + contacto + "]: " + message + "");
 				output.flush();
 				
-				//clear the input TextField
-				input.clear();
+				//clear the txtInput TextField
+				txtInput.clear();
 			} catch(IOException ex) {
 				System.err.println(ex);
 			}
