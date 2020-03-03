@@ -56,6 +56,7 @@ public class TaskClientConnection implements Runnable {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+		
 	  }	
 
     }

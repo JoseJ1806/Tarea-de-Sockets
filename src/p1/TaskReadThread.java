@@ -4,7 +4,12 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 import javafx.application.Platform;
-
+/**
+ * 
+ * 
+ * Used to get input from the server
+ * 
+ */
 public class TaskReadThread implements Runnable {
 	    //private variables
 	    Socket socket;

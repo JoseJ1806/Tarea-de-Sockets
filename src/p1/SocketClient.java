@@ -1,6 +1,7 @@
 package p1;
 
 import java.io.DataOutputStream;
+
 import java.io.IOException;
 import java.net.Socket;
 
@@ -19,10 +20,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
+
 public class SocketClient extends Application{
 
 	TextField puerto;
-	TextField txtInput;
+	static TextField txtInput;
 	public TextArea messages = new TextArea();
 	
 	DataOutputStream output = null;
@@ -58,8 +60,6 @@ public class SocketClient extends Application{
 		
 		Button enviar = new Button("Enviar");
 		enviar.setMinSize(70, 80);
-		enviar.setStyle(Amarillo_Letra);
-		enviar.setStyle(Negro_Mensajes);
 		enviar.setStyle("-fx-font:bold italic 24pt Arial; -fx-text-fill:rgba(249, 226, 162, 0.9); -fx-background-color: rgba(66, 66, 66, 5);");
 		enviar.setOnAction(new ButtonListener());
 		
@@ -87,6 +87,7 @@ public class SocketClient extends Application{
 		try {
             // Create a socket to connect to the server
             Socket socket = new Socket(ConnectionUtil.host, ConnectionUtil.port);
+            
 
             //Connection successful
             messages.appendText("Connected. \n");
