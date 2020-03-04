@@ -20,6 +20,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
+/**
+ * This is the client which passes and gets messages to the server and also with multiple clients
+ * 
+ * It uses TaskReadThread.java file in order to get simultaneous input from the server
+ *
+ */
 
 public class SocketClient extends Application{
 
@@ -36,7 +42,7 @@ public class SocketClient extends Application{
 		
 	public Parent createContent() {
 		
-		messages.setMaxSize(400,400);
+		messages.setMaxSize(600,600);
 		messages.setStyle("-fx-control-inner-background: rgba(66, 66, 66, 5); -fx-text-fill: rgba(249, 226, 162, 0.9);");
 		messages.setMouseTransparent(true);
 		messages.setFocusTraversable(false);
@@ -69,7 +75,7 @@ public class SocketClient extends Application{
 		BorderPane root = new BorderPane();
 		root.setBottom(espacio);
 		root.setCenter(messages);
-		BorderPane.setAlignment(messages,Pos.TOP_RIGHT);
+		BorderPane.setAlignment(messages,Pos.CENTER);
 		BorderPane.setAlignment(espacio, Pos.BOTTOM_LEFT);
 		root.setPrefSize(400, 400);
 		root.setStyle(Fondo);
@@ -82,13 +88,12 @@ public class SocketClient extends Application{
 		primaryStage.setTitle("Text Chat App");
 		primaryStage.setScene(new Scene(createContent(),800,600));
 		primaryStage.show();
-		primaryStage.setResizable(false);
+		primaryStage.setResizable(true);
 	
 		try {
             // Create a socket to connect to the server
-            Socket socket = new Socket(ConnectionUtil.host, ConnectionUtil.port);
-            
-
+            Socket socket = new Socket(ConnectionUtil.host , ConnectionUtil.port);
+       
             //Connection successful
             messages.appendText("Connected. \n");
           
@@ -123,7 +128,7 @@ public class SocketClient extends Application{
                     return;
 				}
 				//send message 
-				output.writeUTF("[port" + contacto + "]: " + message + "");
+				output.writeUTF("[" + contacto + "]: " + message + "");
 				output.flush();
 				
 				//clear the txtInput TextField

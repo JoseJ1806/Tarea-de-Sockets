@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 import javafx.application.Platform;
 
+
 /**
  * 
  * This class represents each new connection
@@ -39,7 +40,7 @@ public class TaskClientConnection implements Runnable {
 				String message = input.readUTF();
 				
 				//Send message
-				server.broadcast(message);
+				SocketServer.broadcast(message);
 				
 				//show message
 				Platform.runLater(() -> {
