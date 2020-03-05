@@ -20,6 +20,12 @@ public class TaskClientConnection implements Runnable {
 	DataInputStream input;
 	DataOutputStream output;
 	
+	/**
+	 * 
+	 * @param socket represents the import java.net.Socket
+	 * @param server server's SocketServer
+	 */
+	
 	public TaskClientConnection (Socket socket, SocketServer server) {
 		this.socket = socket;
 		this.server = server;	
@@ -61,7 +67,10 @@ public class TaskClientConnection implements Runnable {
 	  }	
 
     }
-	//send message back to client
+	/**
+	 * 
+	 * @param message sends message back to client
+	 */
 	public void sendMessage (String message) {
 		try {
 			output.writeUTF(message);
