@@ -39,7 +39,13 @@ public class SocketClient extends Application{
 	String Negro_TypeBar = "-fx-control-inner-background: rgba(66, 66, 66, 5);";
 	String Amarillo_Letra = "-fx-text-fill: rgba(249, 226, 162, 0.9);";
 	String Fondo = "-fx-background-color: rgba(249, 226, 162, 0.9);";
-		
+	/**
+	 * This where all the elements of the GUI are initialized
+	 * 
+	 * 
+	 * 
+	 * @return root where all the GUI elements are located (inside a BorderPane)
+	 */
 	public Parent createContent() {
 		
 		messages.setMaxSize(600,600);
@@ -83,6 +89,12 @@ public class SocketClient extends Application{
 			
 	}
 	
+	/**
+	 * 
+	 * This is where the GUI is created by calling the Parent createContent
+	 *
+	 */
+	
 	@Override
 	public void start (Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Text Chat App");
@@ -112,7 +124,14 @@ public class SocketClient extends Application{
 	public static void main(String[] args) {
 		launch (args);	
 	}
-
+	
+	/**
+	 * Button from which the client sends messages
+	 *@param contacto The client's user name which will be displayed in the conversation
+	 * @param message The client's input from his side of the conversation
+	 *
+	 */
+	
 	private class ButtonListener implements EventHandler<ActionEvent> {
 		
 		@Override
