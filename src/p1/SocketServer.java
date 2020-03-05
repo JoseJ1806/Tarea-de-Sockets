@@ -27,22 +27,25 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+/** This is the server class
+* 
+* 
+* 
+* It uses the TaskClientConnection.java file which represents each new connection
+*/
+
 public class SocketServer extends Application {
 	
-	/** This is the server class
-	 * 
-	 * 
-	 * 
-	 * It uses the TaskClientConnection.java file which represents each new connection
-	 */
-		
-		
-	
-	Stage primaryStage;
-	ScrollPane scrollPane;
+    Stage primaryStage;
+    ScrollPane scrollPane;
     public TextArea Connections;
     static List<TaskClientConnection> connectionList = new ArrayList<TaskClientConnection>();
-   
+	
+    /**
+    * 
+    * All of the server's GUI elements go here
+    * 
+    */
    
     @Override
 	public void start (Stage primaryStage) {
@@ -63,9 +66,10 @@ public class SocketServer extends Application {
     	primaryStage.setResizable(false);
  
     	    	
-    	//create a new thread
+    	 /**
+    	 * This thread allows for the creation of the serverSocket and continuous connections to it
+    	 */
     	new Thread(() -> {
-    		//if (LogIn == true) {
 				try {
 					//Creates a server socket
 					ServerSocket serverSocket = new ServerSocket(ConnectionUtil.port);
@@ -90,7 +94,7 @@ public class SocketServer extends Application {
     			
     		} 
     			
-    		//}
+    		
 
 			
     	}).start();
