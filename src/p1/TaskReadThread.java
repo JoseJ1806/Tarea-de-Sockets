@@ -18,8 +18,10 @@ public class TaskReadThread implements Runnable {
 	    
 	    /**
 	     * 
+	     *
 	     * @param socket represents the import java.net.Socket
 	     * @param client the client's SocketClient
+	     *
 	     */
 	    public TaskReadThread(Socket socket, SocketClient client) {
 	        this.socket = socket;
